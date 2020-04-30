@@ -1,50 +1,58 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import GoogleLogin, {GoogleLoginResponse} from "react-google-login";
 import {connect} from "react-redux";
-import {USER_LOG_IN} from "./actions";
+import {USER_LOG_IN} from "./redux/actions";
+import Note from "./components/Note";
+import "antd/dist/antd.css";
+import {UserOutlined} from '@ant-design/icons';
+import {Avatar, Col, Layout, Row} from "antd";
 
 
 const App = ({user, handleUserLogIn}) => {
+
     const setUser = (googleAccessResponse: GoogleLoginResponse) => {
-        const user = {}
-        user.name = googleAccessResponse.getBasicProfile().getName()
+        const user = {fullName: null, name: null, accessToken: null}
+        user.fullName = googleAccessResponse.getBasicProfile().getName()
+        user.name = googleAccessResponse.getBasicProfile().getGivenName()
         user.accessToken = googleAccessResponse.accessToken
-        console.log("User logged in: " + user.name)
+        console.log("User logged in: ", user)
         handleUserLogIn(user)
     }
 
     return (
-        <div className="App">
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo"/>
-                <p>
-                    {
-                        user.name ?
-                        <div>Hello {user.name}</div>
-                            :
-                            <div>Please log in</div>
-                    }
-                </p>
-                <a
-                    className="App-link"
-                    href="https://reactjs.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Learn React
-                </a>
-                <GoogleLogin
-                    clientId="994722567898-371a34efbppuihdd2uf13nmf4q6l1o11.apps.googleusercontent.com"
-                    buttonText="Login with google"
-                    onSuccess={setUser}
-                    onFailure={console.log}
-                    isSignedIn={true}
-                    cookiePolicy={'single_host_origin'}
-                />
-            </header>
-        </div>
+        <Layout className="App">
+            <Layout.Header style={{backgroundColor: '#ececec'}}>
+                {
+                    user.fullName &&
+                    <Row justify="start" flex="auto">
+                        <Col style={{marginRight: "10px"}}>
+                            <Avatar style={{backgroundColor: '#87d068'}} icon={<UserOutlined/>}/>
+                        </Col>
+                        <Col>
+                            <div>Hello {user.fullName}</div>
+                        </Col>
+                    </Row>
+                }
+            </Layout.Header>
+            <Layout.Content>
+                {
+                    !user.fullName &&
+                    <GoogleLogin
+                        clientId="994722567898-371a34efbppuihdd2uf13nmf4q6l1o11.apps.googleusercontent.com"
+                        buttonText="Login with google"
+                        onSuccess={setUser}
+                        onFailure={console.log}
+                        isSignedIn={true}
+                        cookiePolicy={'single_host_origin'}
+                    />
+                }
+
+                <Note>
+
+                </Note>
+            </Layout.Content>
+        </Layout>
     );
 }
 
