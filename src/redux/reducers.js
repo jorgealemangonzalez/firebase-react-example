@@ -1,5 +1,10 @@
 import {USER_LOG_IN} from "./actions";
 
+export const initialState = {
+    user: {},
+    notes: [],
+}
+
 export const userReducer = function (state = 0, action) {
     switch (action.type) {
         case USER_LOG_IN:

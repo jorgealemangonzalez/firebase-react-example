@@ -1,15 +1,17 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
 import GoogleLogin, {GoogleLoginResponse} from "react-google-login";
 import {connect} from "react-redux";
 import {USER_LOG_IN} from "./redux/actions";
 import Note from "./components/Note";
 import "antd/dist/antd.css";
-import {UserOutlined} from '@ant-design/icons';
-import {Avatar, Col, Layout, Row} from "antd";
-
+import {PlusOutlined, UserOutlined} from '@ant-design/icons';
+import {Avatar, Button, Col, Layout, Modal, Row} from "antd";
+import NewNoteModal from "./components/NewNoteModal";
 
 const App = ({user, handleUserLogIn}) => {
+
+    let [newNoteDialogVisible, setNewNoteDialogVisible] = useState(false)
 
     const setUser = (googleAccessResponse: GoogleLoginResponse) => {
         const user = {fullName: null, name: null, accessToken: null}
@@ -48,10 +50,47 @@ const App = ({user, handleUserLogIn}) => {
                     />
                 }
 
-                <Note>
+                <Row gutter={[16, 16]}>
+                    <Col span={6}>
+                        <Note title={"Mi primera nota"} content={"Hola que tal"}>
+                        </Note>
+                    </Col>
+                    <Col span={6}>
+                        <Note title={"Mi primera nota"} content={"Hola que tal"}>
+                        </Note>
+                    </Col>
+                    <Col span={6}>
+                        <Note title={"Mi primera nota"} content={"Hola que tal"}>
+                        </Note>
+                    </Col>
+                    <Col span={6}>
+                        <Note title={"Mi primera nota"} content={"Hola que tal"}>
+                        </Note>
+                    </Col>
+                    <Col span={6}>
+                        <Note title={"Mi primera nota"} content={"Hola que tal"}>
+                        </Note>
+                    </Col>
+                    <Col span={6}>
+                        <Button
+                            type="dashed"
+                            onClick={() => {
+                                console.log("Clicked")
+                                setNewNoteDialogVisible(true)
+                            }}
+                            style={{width: '100%', height: '100%'}}
+                        >
+                            <PlusOutlined/> Add Note
+                        </Button>
+                    </Col>
 
-                </Note>
+                </Row>
             </Layout.Content>
+            <NewNoteModal visible={newNoteDialogVisible}
+                          setVisibility={setNewNoteDialogVisible}
+                          submitCallback={(newNote) => {
+                              console.log(newNote)
+                          }}/>
         </Layout>
     );
 }
