@@ -1,5 +1,5 @@
 import React from "react";
-import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import {BrowserRouter, Route, Switch} from "react-router-dom";
 import NotesView from "./NotesView";
 import Login from "./Login";
 import "./App.css"
@@ -7,7 +7,7 @@ import "./App.css"
 export const App = () => {
     return (
         <div className="App">
-            <Router>
+            <BrowserRouter>
                 <Switch>
                     <Route path="/login">
                         <Login/>
@@ -16,7 +16,7 @@ export const App = () => {
                         <NotesView/>
                     </Route>
                 </Switch>
-            </Router>
+            </BrowserRouter>
         </div>
     )
 }

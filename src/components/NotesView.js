@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './NotesView.css';
 import {connect} from "react-redux";
 import Note from "./Note";
@@ -7,10 +7,20 @@ import {PlusOutlined, UserOutlined} from '@ant-design/icons';
 import {Avatar, Button, Col, Layout, Row} from "antd";
 import NewNoteModal from "./NewNoteModal";
 import "firebase/auth"
+import {useHistory} from "react-router-dom";
+import {useFirebase} from "react-redux-firebase";
 
 const NotesView = ({profile}) => {
 
+    let history = useHistory()
+    let firebase = useFirebase()
     let [newNoteDialogVisible, setNewNoteDialogVisible] = useState(false)
+
+    useEffect(() => {
+        if (profile.isLoaded && profile.isEmpty) {
+            history.push('/login')
+        }
+    }, [profile])
 
     return (
         <Layout className="NotesView">
@@ -23,6 +33,9 @@ const NotesView = ({profile}) => {
                         </Col>
                         <Col>
                             <div>Hello {profile.displayName}</div>
+                        </Col>
+                        <Col style={{marginLeft: "10px"}}>
+                            <Button onClick={firebase.logout}>Log out</Button>
                         </Col>
                     </Row>
                 }

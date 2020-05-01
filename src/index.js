@@ -5,10 +5,9 @@ import * as serviceWorker from './serviceWorker';
 import {combineReducers, createStore} from "redux";
 import {initialState, userReducer} from "./redux/reducers";
 import {Provider} from "react-redux";
-import * as firebase from 'firebase/app';
-import 'firebase/auth';
 import {App} from "./components/App";
 import {firebaseReducer, ReactReduxFirebaseProvider} from 'react-redux-firebase'
+import * as firebase from "firebase";
 
 let firebaseConfig = {}
 

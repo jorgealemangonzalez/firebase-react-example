@@ -1,15 +1,16 @@
-import {GoogleLoginResponse} from "react-google-login";
 import React, {useEffect} from "react";
-import * as firebase from "firebase";
 import {USER_LOG_IN} from "../redux/actions";
 import {connect} from "react-redux";
-import {Button} from "antd";
 import {useFirebase} from "react-redux-firebase";
+import {useHistory} from "react-router-dom";
+import GoogleButton from "react-google-button";
+import {Col, Row} from "antd";
 
 
 const Login = ({user, handleUserLogIn, auth, profile, login}) => {
 
     const f = useFirebase()
+    const history = useHistory()
 
     const loginWithGoogle = () => {
         console.log(f)
@@ -20,25 +21,22 @@ const Login = ({user, handleUserLogIn, auth, profile, login}) => {
     }
 
     useEffect(() => {
-        console.log(profile)
+        if (profile.isLoaded && !profile.isEmpty) {
+            history.push('/')
+        }
     }, [profile])
 
     return (
-        <div>
-            <h1>Please log in to enter the app</h1>
-            <div></div>
-            <Button onClick={loginWithGoogle}>
-                Login with google
-            </Button>
-            {/*<GoogleLogin*/}
-            {/*    clientId="994722567898-371a34efbppuihdd2uf13nmf4q6l1o11.apps.googleusercontent.com"*/}
-            {/*    buttonText="Login with google"*/}
-            {/*    onSuccess={setUser}*/}
-            {/*    onFailure={console.log}*/}
-            {/*    isSignedIn={true}*/}
-            {/*    cookiePolicy={'single_host_origin'}*/}
-            {/*/>*/}
-        </div>
+        <Row justify="center" align="middle" style={{height:"100%"}}>
+            <Col>
+                <Row justify="center">
+                    <h1>Please log in to enter the app</h1>
+                </Row>
+                <Row justify="center">
+                    <GoogleButton onClick={loginWithGoogle}/>
+                </Row>
+            </Col>
+        </Row>
     )
 }
 
