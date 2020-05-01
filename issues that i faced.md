@@ -13,10 +13,10 @@ create a new OAuth credential whitelisting localhost:3000.
 When I set up a login with google button and the user logs-in it doesn't shows up
 on the firebase authentication window.
 ###Solution
-`npm i firebase`
+`npm i firebase react-redux-firebase`
 
 Initialize the app: [https://www.npmjs.com/package/firebase](https://www.npmjs.com/package/firebase)
-
+Configure the reducer and use `useFirebase()` instead of regular firebase: [react redux firebase npm](https://www.npmjs.com/package/react-redux-firebase)
 
 More information [on the firebase webpage.](https://firebase.google.com/docs/auth/web/manage-users)
  

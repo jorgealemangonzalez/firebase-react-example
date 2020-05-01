@@ -1,14 +1,9 @@
-import {USER_LOG_IN} from "./actions";
-
 export const initialState = {
-    user: {},
     notes: [],
 }
 
-export const userReducer = function (state = 0, action) {
+export const notesReducer = function (state = 0, action) {
     switch (action.type) {
-        case USER_LOG_IN:
-            return {...state, user: action.payload};
         default:
             return state;
     }
