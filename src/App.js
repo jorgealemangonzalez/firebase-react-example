@@ -6,20 +6,29 @@ import {USER_LOG_IN} from "./redux/actions";
 import Note from "./components/Note";
 import "antd/dist/antd.css";
 import {PlusOutlined, UserOutlined} from '@ant-design/icons';
-import {Avatar, Button, Col, Layout, Modal, Row} from "antd";
+import {Avatar, Button, Col, Layout, Row} from "antd";
 import NewNoteModal from "./components/NewNoteModal";
+import * as firebase from "firebase"
+import "firebase/auth"
 
 const App = ({user, handleUserLogIn}) => {
 
     let [newNoteDialogVisible, setNewNoteDialogVisible] = useState(false)
 
     const setUser = (googleAccessResponse: GoogleLoginResponse) => {
+        console.log(googleAccessResponse)
         const user = {fullName: null, name: null, accessToken: null}
         user.fullName = googleAccessResponse.getBasicProfile().getName()
         user.name = googleAccessResponse.getBasicProfile().getGivenName()
         user.accessToken = googleAccessResponse.accessToken
         console.log("User logged in: ", user)
         handleUserLogIn(user)
+
+        console.log(firebase)
+        firebase.auth().signInWithCustomToken(googleAccessResponse)
+            .then(console.log)
+            .catch(console.error)
+
     }
 
     return (
