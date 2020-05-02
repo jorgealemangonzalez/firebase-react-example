@@ -3,11 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 import {combineReducers, createStore} from "redux";
-import {initialState, userReducer} from "./redux/reducers";
+import {initialState} from "./redux/reducers";
 import {Provider} from "react-redux";
 import {App} from "./components/App";
 import {firebaseReducer, ReactReduxFirebaseProvider} from 'react-redux-firebase'
 import * as firebase from "firebase";
+import {createFirestoreInstance, firestoreReducer} from "redux-firestore";
 
 let firebaseConfig = {}
 
@@ -32,11 +33,15 @@ firebase.initializeApp(
     firebaseConfig
 )
 
+firebase.firestore() // <- needed if using firestore
+
 const rootReducer = combineReducers({
-    firebase: firebaseReducer
+    firebase: firebaseReducer,
+    firestore: firestoreReducer
 })
 
 const store = createStore(rootReducer, initialState);
+// Initialize other services on firebase instance
 
 const rrfProps = {
     firebase,
@@ -44,8 +49,8 @@ const rrfProps = {
         userProfile: 'users',
         useFirestoreForProfile: true // Firestore for Profile instead of Realtime DB
     },
-    dispatch: store.dispatch
-    // createFirestoreInstance // <- needed if using firestore
+    dispatch: store.dispatch,
+    createFirestoreInstance // <- needed if using firestore
 }
 
 ReactDOM.render(

@@ -16,7 +16,8 @@
     "react-redux-firebase": "^3.3.1",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
-    "redux": "^4.0.5"
+    "redux": "^4.0.5",
+    "redux-firestore": "^0.13.0"
   },
   "scripts": {
     "deploy": "npm run build && firebase deploy",

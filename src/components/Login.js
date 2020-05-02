@@ -24,7 +24,7 @@ const Login = ({user, handleUserLogIn, auth, profile, login}) => {
         if (profile.isLoaded && !profile.isEmpty) {
             history.push('/')
         }
-    }, [profile])
+    }, [profile, history])
 
     return (
         <Row justify="center" align="middle" style={{height:"100%"}}>
