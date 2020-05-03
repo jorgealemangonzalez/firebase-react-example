@@ -20,8 +20,11 @@
     "redux-firestore": "^0.13.0"
   },
   "scripts": {
+    "deployFrontend": "npm run build && firebase deploy --only hosting",
+    "deployBackend": "firebase deploy --only functions",
     "deploy": "npm run build && firebase deploy",
-    "start": "react-scripts start",
+    "backend": "export GOOGLE_APPLICATION_CREDENTIALS=\"../service_account_key.json\"  && firebase emulators:start",
+    "frontend": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

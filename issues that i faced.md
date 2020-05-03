@@ -20,3 +20,23 @@ Configure the reducer and use `useFirebase()` instead of regular firebase: [reac
 
 More information [on the firebase webpage.](https://firebase.google.com/docs/auth/web/manage-users)
  
+##service_account_key.json not found
+###Issue
+The file with the required configuration to run the cloud functions locally does't work.
+###Solution
+Follow the guidelines under [https://firebase.google.com/docs/functions/local-emulator](https://firebase.google.com/docs/functions/local-emulator)
+
+##CORS issue
+###Issue
+```
+Access to fetch at 'http://localhost:5000/notes-9e2e3/us-central1/addMessage' from origin 'http://localhost:3000' has 
+been blocked by CORS policy: 
+Response to preflight request doesn't pass access control check: 
+No 'Access-Control-Allow-Origin' header is present on the requested resource. If an opaque response serves your needs, 
+set the request's mode to 'no-cors' to fetch the resource with CORS disabled.
+``` 
+
+Firebase SDK fails with CORS error when **ANY KIND OF ERROR** occur. So never believe it.
+
+###Solution
+Look at any other reason an error could raise. 

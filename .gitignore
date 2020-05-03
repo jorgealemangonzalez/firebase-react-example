@@ -24,3 +24,5 @@ yarn-error.log*
 
 
 .idea/
+firebase-debug.log
+service_account_key.json

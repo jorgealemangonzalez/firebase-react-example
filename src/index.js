@@ -9,6 +9,7 @@ import {App} from "./components/App";
 import {firebaseReducer, ReactReduxFirebaseProvider} from 'react-redux-firebase'
 import * as firebase from "firebase";
 import {createFirestoreInstance, firestoreReducer} from "redux-firestore";
+import firebaseCredentials from './firebase_credentials.json'
 
 let firebaseConfig = {}
 
@@ -17,16 +18,7 @@ if (window.firebase !== undefined && window.firebase.apps.length > 0) {
     firebaseConfig = window.firebase.apps[0].options;
 } else {
     console.log("Firebase local environment")
-    firebaseConfig = {
-        apiKey: "AIzaSyAtAmaZs8Eokv1focSeK161HU06EnnZuC0",
-        authDomain: "notes-9e2e3.firebaseapp.com",
-        databaseURL: "https://notes-9e2e3.firebaseio.com",
-        projectId: "notes-9e2e3",
-        storageBucket: "notes-9e2e3.appspot.com",
-        messagingSenderId: "994722567898",
-        appId: "1:994722567898:web:3d98f9afa1aacb7f7137e3",
-        measurementId: "G-2WPEZ6JV2B"
-    }
+    firebaseConfig = firebaseCredentials
 }
 
 firebase.initializeApp(

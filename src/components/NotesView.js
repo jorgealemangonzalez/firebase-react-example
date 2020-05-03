@@ -8,16 +8,20 @@ import {Avatar, Button, Col, Layout, Row} from "antd";
 import NewNoteModal from "./NewNoteModal";
 import "firebase/auth"
 import {useHistory} from "react-router-dom";
-import {useFirebase, useFirestoreConnect} from "react-redux-firebase";
+import {useFirebase, useFirestore, useFirestoreConnect} from "react-redux-firebase";
+import {addMessage} from "../api/Messages";
 
 const NotesView = ({profile}) => {
 
     let history = useHistory()
     let firebase = useFirebase()
+    // firebase.functions().useFunctionsEmulator("http://localhost:5001")
+    let firestore = useFirestore()
+    // let addMessage = firebase.functions().httpsCallable("messages");
     let [newNoteDialogVisible, setNewNoteDialogVisible] = useState(false)
 
     useFirestoreConnect([
-        { collection: 'notes' }
+        { collection: 'notes', orderBy: ["createdAt", 'asc'] }
     ])
     const notes = useSelector(state => state.firestore.ordered.notes)
 
@@ -85,11 +89,22 @@ const NotesView = ({profile}) => {
                     </Col>
 
                 </Row>
+                <Button onClick={() => {
+                    addMessage({content: "Hello my fiend " + Date.now()})
+                        .then((response) => {
+                            console.log(response)
+                        })
+                        .catch(console.log)
+
+                }}>Send new message</Button>
             </Layout.Content>
             <NewNoteModal visible={newNoteDialogVisible}
                           setVisibility={setNewNoteDialogVisible}
                           submitCallback={(newNote) => {
-                              console.log(newNote)
+                              firestore.add("notes",
+                                  {...newNote,
+                                      createdAt: firestore.Timestamp.now()
+                                  })
                           }}/>
         </Layout>
     );
