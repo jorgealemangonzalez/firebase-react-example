@@ -8,11 +8,11 @@ Go to [console.developers.google.com/apis/credentials](console.developers.google
 create a new OAuth credential whitelisting localhost:3000.
 
 
-##User is not beeing created in firebase console
+## User is not beeing created in firebase console
 ### Issue
 When I set up a login with google button and the user logs-in it doesn't shows up
 on the firebase authentication window.
-###Solution
+### Solution
 `npm i firebase react-redux-firebase`
 
 Initialize the app: [https://www.npmjs.com/package/firebase](https://www.npmjs.com/package/firebase)
@@ -20,14 +20,14 @@ Configure the reducer and use `useFirebase()` instead of regular firebase: [reac
 
 More information [on the firebase webpage.](https://firebase.google.com/docs/auth/web/manage-users)
  
-##service_account_key.json not found
-###Issue
+## service_account_key.json not found
+### Issue
 The file with the required configuration to run the cloud functions locally does't work.
-###Solution
+### Solution
 Follow the guidelines under [https://firebase.google.com/docs/functions/local-emulator](https://firebase.google.com/docs/functions/local-emulator)
 
-##CORS issue
-###Issue
+## CORS issue
+### Issue
 ```
 Access to fetch at 'http://localhost:5000/notes-9e2e3/us-central1/addMessage' from origin 'http://localhost:3000' has 
 been blocked by CORS policy: 
@@ -38,5 +38,10 @@ set the request's mode to 'no-cors' to fetch the resource with CORS disabled.
 
 Firebase SDK fails with CORS error when **ANY KIND OF ERROR** occur. So never believe it.
 
-###Solution
+### Solution
 Look at any other reason an error could raise. 
+
+## Calling HTTP cloud functions: Your client does not have permission to get URL
+
+### Solution
+Take a look at the [cloud functions permissions setup](https://stackoverflow.com/questions/47511677/firebase-cloud-function-your-client-does-not-have-permission-to-get-url-200-fr)
